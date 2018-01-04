@@ -11,23 +11,23 @@ let fakeSer = {
     playlists: [
       {
         name: 'Favs',
-        songs [
+        songs: [
           {
             name: 'Inspire The Liars',
             duration: 1234
           },
           {
-            name: 'Pomegranete'
+            name: 'Pomegranete',
             duration: 234
           },
           {
-            name:'Sweater Weather'
+            name: 'Sweater Weather',
             duration: 120
           }]
       },
       {
         name: '2nd Favs',
-        songs [
+        songs: [
           {
             name: 'The Robot With Human Hair Pt. 4',
             duration: 321
@@ -44,7 +44,7 @@ let fakeSer = {
       },
       {
         name: '3rd Favs',
-        songs [
+        songs: [
           {
             name: 'Crazy',
             duration: 567
@@ -61,7 +61,7 @@ let fakeSer = {
       },
       {
         name: '4th Favs',
-        songs [
+        songs: [
           {
             name: 'Alex English',
             duration: 854
@@ -92,15 +92,17 @@ class PlaylistCounter extends Component {
 
 class HoursCounter extends Component {
   render() {
-    let allSongs = this.props.playlists.reduce((songs, eachPlaylists) => {
-      return songs.concat(eachPlaylists.songs)
+    let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
+      return songs.concat(eachPlaylist.songs)
     }, [])
+
     let totalDuration = allSongs.reduce((sum, eachSong) => {
-      return sum + eachSong.duration
+      return (sum + eachSong.duration)
     }, 0)
+
     return (
       <div style={{...defaultStyle, width: "40%", display: 'inline-block'}}>
-        <h2>{Math.round(totalDuration/60)} hours</h2>
+        <h2>{Math.round(totalDuration/3600)} hours</h2>
       </div>
     );
   }
@@ -133,22 +135,22 @@ class App extends Component {
   constructor() {
     super();
     this.state = {serverData: {}}
-  }
+  };
   componentDidMount() {
-    setTimeOut(() => {
-    this.setState({serverData: fakeSer});
-  }, 1000);
-  }
+    setTimeout(() => {
+      this.setState({serverData: fakeSer});
+    }, 1000);
+  };
   render() {
     return (
       <div className="App">
-        {this.setState.serverData.user ?
+        {this.state.serverData.user ?
           <div>
-            <h1 style={...defaultStyle, 'font-size': '54px'}}>
-              {this.stat.serverData.user.name}'s Playlist
-            </h1>}
-            <PlaylistCounter playlists={this.stat.serverData.user.playlists}/>
-            <HoursCounter/>
+            <h1 style={{...defaultStyle, 'font-size': '54px'}}>
+              {this.state.serverData.user.name}'s Playlist
+            </h1>
+            <PlaylistCounter playlists={this.state.serverData.user.playlists}/>
+            <HoursCounter playlists={this.state.serverData.user.playlists}/>
             <Filter/>
             <Playlist/>
             <Playlist/>
