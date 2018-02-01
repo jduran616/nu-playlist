@@ -203,7 +203,7 @@ class App extends Component {
             }>
             <button onClick={() => {window.location = window.location.href.includes('localhost')
               ? 'http://localhost:8888/login'
-              : 'http://nu-playlist-backend.herokuapp.com'}}
+              : 'http://nu-playlist-backend.herokuapp.com/login'}}
             style={
               {
                 'fontSize': '20px',
